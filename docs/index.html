@@ -6,19 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Figure skating protocol generator 2017-2018</title>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font: inherit;
+        text-align: inherit;
+      }
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+
       :root {
-        font-size: 1.5vw;
+        font-size: 1vw;
+        line-height: 1.5;
+        text-align: left;
+        min-width: 1000px;
+      }
+      body {
+        padding: 2rem;
       }
       table {
         width: 100%;
+        table-layout: fixed;
+        border-spacing: 1rem 0.25rem;
       }
       th {
-        text-align: left;
+        font-weight: bold;
+        padding-bottom: 0.5rem;
       }
-      th,
-      td {
-        border: solid 1px rgba(0, 0, 0, 0.25)
+      .frame {
+        border: solid 1px;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
       }
+      .frame + .frame {
+        margin-top: 1rem;;
+      }
+
       .u-tal {
         text-align: left;
       }
@@ -28,24 +52,31 @@
       .u-tar {
         text-align: right;
       }
-      .frame {
-        border: solid 1px;
+      .u-bold {
+        font-weight: bold;
       }
+
+      /*
+      th,
+      td {
+        border: solid 1px rgba(0, 0, 0, 0.25)
+      }
+      */
     </style>
   </head>
   <body>
     <div class="frame">
-      <table>
+      <table class="u-bold">
         <thead>
           <tr>
-            <th>Rank</th>
+            <th style="width: 3rem;">Rank</th>
             <th>Name</th>
-            <th class="u-tar">Nation</th>
-            <th class="u-tar">Starting Number</th>
-            <th class="u-tar">Total Segment Score</th>
-            <th class="u-tar">Total Element Score</th>
-            <th class="u-tar">Total Program Component Score (factored)</th>
-            <th class="u-tar">Total Deductions</th>
+            <th class="u-tar" style="width: 4rem;">Nation</th>
+            <th class="u-tar" style="width: 6rem;">Starting Number</th>
+            <th class="u-tar" style="width: 6rem;">Total Segment Score</th>
+            <th class="u-tar" style="width: 6rem;">Total Element Score</th>
+            <th class="u-tar" style="width: 12rem;">Total<br>Program Component Score (factored)</th>
+            <th class="u-tar" style="width: 7rem;">Total Deductions</th>
           </tr>
         </thead>
         <tbody>
@@ -67,113 +98,154 @@
       <table>
         <thead>
           <tr>
-            <th>#</th>
-            <th>Executed Elements</th>
-            <th>Info</th>
-            <th style="width: 4em;">Base Value</th>
+            <th style="width: 1.5rem;">#</th>
+            <th style="width: 20rem;">Executed<br>Elements</th>
+            <th style="width: 1rem;">
+              <div style="transform: rotate(-90deg)">Info</div>
+            </th>
+            <th style="width: 4rem;">Base Value</th>
+            <th style="width: 1rem;"><!-- Bonus --></th>
+            <th style="width: 4rem;">GOE</th>
             <th></th>
-            <th>GOE</th>
-            <th></th>
-            <th>J1</th>
-            <th>J2</th>
-            <th>J3</th>
-            <th>J4</th>
-            <th>J5</th>
-            <th>J6</th>
-            <th>J7</th>
-            <th>J8</th>
-            <th>J9</th>
-            <th></th>
-            <th>Ref</th>
-            <th>Scores of Panel</th>
+            <th class="u-tac">J1</th>
+            <th class="u-tac">J2</th>
+            <th class="u-tac">J3</th>
+            <th class="u-tac">J4</th>
+            <th class="u-tac">J5</th>
+            <th class="u-tac">J6</th>
+            <th class="u-tac">J7</th>
+            <th class="u-tac">J8</th>
+            <th class="u-tac">J9</th>
+            <th class="u-tac"></th>
+            <th style="width: 2.5rem;">Ref</th>
+            <th class="u-tac" style="width: 6rem;">Scores of Panel</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
+            <td class="u-tar">1</td>
             <td>3A</td>
             <td></td>
             <td class="u-tar">8.50</td>
             <td></td>
-            <td>0.29</td>
+            <td class="u-tar">0.29</td>
             <td></td>
-            <td>-1</td>
-            <td>0</td>
-            <td>1</td>
-            <td>0</td>
-            <td>1</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>1</td>
+            <td class="u-tac">-1</td>
+            <td class="u-tac">0</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">0</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">0</td>
+            <td class="u-tac">0</td>
+            <td class="u-tac">0</td>
+            <td class="u-tac">1</td>
             <td></td>
             <td></td>
-            <td>8.79</td>
+            <td class="u-tar">8.79</td>
           </tr>
           <tr>
-            <td>2</td>
+            <td class="u-tar">2</td>
             <td>3Lz+3T</td>
             <td></td>
             <td class="u-tar">10.30</td>
             <td></td>
-            <td>0.80</td>
+            <td class="u-tar">0.80</td>
             <td></td>
-            <td>1</td>
-            <td>1</td>
-            <td>2</td>
-            <td>2</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">2</td>
+            <td class="u-tac">2</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">1</td>
             <td></td>
             <td></td>
-            <td>11.10</td>
+            <td class="u-tar">11.10</td>
           </tr>
           <tr>
-            <td>4</td>
+            <td class="u-tar">4</td>
             <td>3F</td>
             <td>!</td>
             <td class="u-tar">5.83</td>
             <td>x</td>
-            <td>0.50</td>
+            <td class="u-tar">0.50</td>
             <td></td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>0</td>
-            <td>0</td>
-            <td>1</td>
-            <td>-1</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">0</td>
+            <td class="u-tac">0</td>
+            <td class="u-tac">1</td>
+            <td class="u-tac">-1</td>
             <td></td>
             <td></td>
-            <td>6.33</td>
+            <td class="u-tar">6.33</td>
           </tr>
           <tr>
-            <th></th>
-            <th colspan="4">Program Components</th>
-            <th>Factor</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="u-tar u-bold">38.23</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="u-tar u-bold">43.51</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="4" class="u-bold">Program Components</td>
+            <td class="u-tar">Factor</td>
           </tr>
           <tr>
             <td></td>
             <td colspan="4">Skating Skills</td>
-            <td>1.00</td>
+            <td class="u-tar">1.00</td>
             <td></td>
-            <td>8.25</td>
-            <td>8.75</td>
-            <td>8.25</td>
-            <td>8.75</td>
-            <td>8.50</td>
-            <td>8.25</td>
-            <td>8.00</td>
-            <td>7.75</td>
-            <td>7.50</td>
+            <td class="u-tac">8.25</td>
+            <td class="u-tac">8.75</td>
+            <td class="u-tac">8.25</td>
+            <td class="u-tac">8.75</td>
+            <td class="u-tac">8.50</td>
+            <td class="u-tac">8.25</td>
+            <td class="u-tac">8.00</td>
+            <td class="u-tac">7.75</td>
+            <td class="u-tac">7.50</td>
             <td></td>
             <td></td>
-            <td>8.25</td>
+            <td class="u-tar">8.25</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="4" class="u-bold">Judges Total Program Component Score (factored)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="u-tar u-bold">42.50</td>
           </tr>
         </tbody>
       </table>
