@@ -1,8 +1,8 @@
 module.exports = {
   generate: {
-    dir: "docs"
+    dir: "docs",
   },
   router: {
-    base: '/fspg-2017/'
-  }
+    base: "/fspg-2017/",
+  },
 }

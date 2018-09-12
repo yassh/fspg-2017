@@ -1,26 +1,26 @@
 <template>
   <div>
     <h1>Figure skating protocol generator 2017-2018</h1>
-    <div>Rank: <input type="number" v-model="data.rank" /></div>
-    <div>Name: <input type="text" v-model="data.name" /></div>
+    <div>Rank: <input v-model="data.rank" type="number" /></div>
+    <div>Name: <input v-model="data.name" type="text" /></div>
     <Protocol :data="data" />
   </div>
 </template>
 
 <script>
-import Protocol from '~/components/Protocol.vue'
+import Protocol from "~/components/Protocol.vue"
 
 export default {
   components: {
     Protocol,
   },
-  data () {
+  data() {
     return {
       data: {
         rank: 1,
         name: "",
-      }
+      },
     }
-  }
+  },
 }
 </script>
