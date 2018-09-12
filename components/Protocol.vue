@@ -16,8 +16,8 @@
         </thead>
         <tbody>
           <tr>
-            <td class="u-tar">{{ data.rank }}</td>
-            <td>{{ data.name }}</td>
+            <td class="u-tar">{{ output.rank }}</td>
+            <td>{{ output.name }}</td>
             <td>UZB</td>
             <td class="u-tar">31</td>
             <td class="u-tar">86.01</td>
@@ -59,10 +59,10 @@
         <tbody>
           <tr>
             <td class="u-tar">1</td>
-            <td>3A</td>
+            <td>{{ output.elements[0].abbr }}</td>
             <td />
-            <td class="u-tar">8.50</td>
-            <td />
+            <td class="u-tar">{{ output.elements[0].baseValue }}</td>
+            <td>{{ output.elements[0].x ? "x" : "" }}</td>
             <td class="u-tar">0.29</td>
             <td />
             <td class="u-tac">-1</td>
@@ -189,11 +189,40 @@
 </template>
 
 <script>
+function getBaseValue(abbr) {
+  switch (abbr) {
+    case "3A":
+      return 850
+    default:
+      return null
+  }
+}
+
+function getBaseValueX(abbr, x) {
+  const baseValue = getBaseValue(abbr)
+  return baseValue && Math.floor(x ? baseValue * 1.1 : baseValue)
+}
+
+function getOutput(input) {
+  return {
+    ...input,
+    elements: input.elements.map(element => ({
+      ...element,
+      baseValue: getBaseValueX(element.abbr, element.x),
+    })),
+  }
+}
+
 export default {
   props: {
-    data: {
+    input: {
       type: Object,
       required: true,
+    },
+  },
+  computed: {
+    output() {
+      return getOutput(this.input)
     },
   },
 }
