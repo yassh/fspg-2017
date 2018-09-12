@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  text-align: inherit;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 1vw;
+  line-height: 1.5;
+  text-align: left;
+  min-width: 1000px;
+}
+body {
+  padding: 2rem;
+}
+
+.u-tal {
+  text-align: left;
+}
+.u-tac {
+  text-align: center;
+}
+.u-tar {
+  text-align: right;
+}
+.u-bold {
+  font-weight: bold;
+}
