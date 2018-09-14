@@ -16,8 +16,14 @@
         </thead>
         <tbody>
           <tr>
-            <td class="u-tar">{{ output.rank }}</td>
-            <td>{{ output.name }}</td>
+            <td class="u-tar">
+              <template v-if="inputMode"><input v-model="input.rank" type="number" /></template>
+              <template v-if="outputMode">{{ output.rank }}</template>
+            </td>
+            <td>
+              <template v-if="inputMode"><input v-model="input.name" type="text" /></template>
+              <template v-if="outputMode">{{ output.name }}</template>
+            </td>
             <td>UZB</td>
             <td class="u-tar">31</td>
             <td class="u-tar">86.01</td>
@@ -59,10 +65,18 @@
         <tbody>
           <tr>
             <td class="u-tar">1</td>
-            <td>{{ output.elements[0].abbr }}</td>
+            <td>
+              <template v-if="inputMode"><input v-model="input.elements[0].abbr" type="text" /></template>
+              <template v-if="outputMode">{{ output.elements[0].abbr }}</template>
+            </td>
             <td />
-            <td class="u-tar">{{ output.elements[0].baseValue }}</td>
-            <td>{{ output.elements[0].x ? "x" : "" }}</td>
+            <td class="u-tar">
+              {{ output.elements[0].baseValue }}
+            </td>
+            <td>
+              <template v-if="inputMode"><input v-model="input.elements[0].x" type="checkbox" /></template>
+              <template v-if="outputMode">{{ output.elements[0].x ? "x" : "" }}</template>
+            </td>
             <td class="u-tar">0.29</td>
             <td />
             <td class="u-tac">-1</td>
@@ -215,14 +229,34 @@ function getOutput(input) {
 
 export default {
   props: {
-    input: {
-      type: Object,
+    mode: {
+      type: String,
       required: true,
     },
+  },
+  data() {
+    return {
+      input: {
+        rank: 1,
+        name: "",
+        elements: [
+          {
+            abbr: "",
+            x: false,
+          },
+        ],
+      },
+    }
   },
   computed: {
     output() {
       return getOutput(this.input)
+    },
+    inputMode() {
+      return this.mode === "input"
+    },
+    outputMode() {
+      return this.mode === "output"
     },
   },
 }

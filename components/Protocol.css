@@ -7,6 +7,9 @@ th {
   font-weight: bold;
   padding-bottom: 0.5rem;
 }
+input {
+  width: 100%;
+}
 .frame {
   border: solid 1px;
   padding-bottom: 0.5rem;
