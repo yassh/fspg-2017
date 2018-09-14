@@ -1,7 +1,7 @@
 table {
-  width: 100%;
-  table-layout: fixed;
   border-spacing: 1rem 0.25rem;
+  table-layout: fixed;
+  width: 100%;
 }
 th {
   font-weight: bold;
@@ -9,11 +9,11 @@ th {
 }
 .frame {
   border: solid 1px;
-  padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
 }
 .frame + .frame {
-  margin-top: 1rem;;
+  margin-top: 1rem;
 }
 
 /*
