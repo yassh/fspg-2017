@@ -25,5 +25,6 @@ module.exports = {
         math: "always",
       },
     ],
+    "vue/singleline-html-element-content-newline": [ERROR, { ignoreWhenNoAttributes: false }],
   },
 }

@@ -1,9 +1,15 @@
 <template>
   <div>
-    <h1>Figure skating protocol generator 2017-2018</h1>
+    <h1>
+      Figure skating protocol generator 2017-2018
+    </h1>
     <div class="mode">
-      <span class="mode-button" @click="toInputMode">📝</span>
-      <span class="mode-button" @click="toOutputMode">🖨</span>
+      <span class="mode-button" @click="toInputMode">
+        📝
+      </span>
+      <span class="mode-button" @click="toOutputMode">
+        🖨
+      </span>
     </div>
     <Protocol :mode="mode" />
   </div>
