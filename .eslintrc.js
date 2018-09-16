@@ -10,7 +10,10 @@ module.exports = {
     "jest/globals": true,
   },
   extends: ["standard", "prettier", "plugin:vue/recommended", "plugin:jest/recommended"],
-  plugins: ["prettier", "jest"],
+  plugins: ["prettier", "flowtype", "jest"],
+  parserOptions: {
+    parser: "babel-eslint",
+  },
   rules: {
     "prettier/prettier": ERROR,
     "vue/max-attributes-per-line": OFF,
