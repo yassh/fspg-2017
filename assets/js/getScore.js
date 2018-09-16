@@ -1,4 +1,6 @@
-export function getBaseValueOfJump(abbrJump) {
+// @flow
+
+export function getBaseValueOfJump(abbrJump: string): ?number {
   switch (abbrJump) {
     case "3T":
       return 430
@@ -17,20 +19,20 @@ export function getBaseValueOfJump(abbrJump) {
   }
 }
 
-export function getBaseValueOfJumpX(abbrJump, x) {
+export function getBaseValueOfJumpX(abbrJump: string, x: boolean): ?number {
   const baseValue = getBaseValueOfJump(abbrJump)
   return baseValue && x ? Math.floor(baseValue * 1.1) : baseValue
 }
 
-export function getBaseValueOfCombo(abbrCombo, x) {
+export function getBaseValueOfCombo(abbrCombo: string, x: boolean): ?number {
   return abbrCombo.split("+").reduce((acc, abbrJump) => acc + getBaseValueOfJumpX(abbrJump, x), 0)
 }
 
-export function getBaseValue(abbr, x) {
-  return getBaseValueOfCombo(abbr, x) || getBaseValueOfJump(abbr, x)
+export function getBaseValue(abbr: string, x: boolean): ?number {
+  return getBaseValueOfCombo(abbr, x) || getBaseValueOfJumpX(abbr, x)
 }
 
-export default function(input) {
+export default function(input: Object): Object {
   return {
     ...input,
     elements: input.elements.map(element => ({
