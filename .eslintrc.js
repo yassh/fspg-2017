@@ -7,9 +7,10 @@ module.exports = {
   env: {
     browser: true,
     node: true,
+    "jest/globals": true,
   },
-  extends: ["standard", "prettier", "plugin:vue/recommended"],
-  plugins: ["prettier"],
+  extends: ["standard", "prettier", "plugin:vue/recommended", "plugin:jest/recommended"],
+  plugins: ["prettier", "jest"],
   rules: {
     "prettier/prettier": ERROR,
     "vue/max-attributes-per-line": OFF,
