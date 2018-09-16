@@ -401,29 +401,7 @@
 </template>
 
 <script>
-function getBaseValue(abbr) {
-  switch (abbr) {
-    case "3A":
-      return 850
-    default:
-      return null
-  }
-}
-
-function getBaseValueX(abbr, x) {
-  const baseValue = getBaseValue(abbr)
-  return baseValue && Math.floor(x ? baseValue * 1.1 : baseValue)
-}
-
-function getOutput(input) {
-  return {
-    ...input,
-    elements: input.elements.map(element => ({
-      ...element,
-      baseValue: getBaseValueX(element.abbr, element.x),
-    })),
-  }
-}
+import getScore from "~/assets/js/getScore"
 
 export default {
   props: {
@@ -448,7 +426,7 @@ export default {
   },
   computed: {
     output() {
-      return getOutput(this.input)
+      return getScore(this.input)
     },
     inputMode() {
       return this.mode === "input"
