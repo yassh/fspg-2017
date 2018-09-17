@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "author": "yassh <yassh32@outlook.jp>",
   "dependencies": {
-    "nuxt": "^1.4.2"
+    "nuxt": "^1.4.2",
+    "papaparse": "^4.6.0"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
