@@ -1,4 +1,4 @@
-import { getBaseValue } from "./getScore"
+import { getBaseValue, getGoe } from "./getScore"
 
 describe("getBaseValue", () => {
   test('"3A" => 850', () => {
@@ -15,5 +15,11 @@ describe("getBaseValue", () => {
 
   test('"3A+3T, x" => 1408', () => {
     expect(getBaseValue("3A+3T", true)).toEqual(1408)
+  })
+})
+
+describe("getGoe", () => {
+  test('"4Lz", [2, 3, 3, 2, 2, 2, 2, 2, 2] => 214', () => {
+    expect(getGoe("4Lz", [2, 3, 3, 2, 2, 2, 2, 2, 2])).toEqual(214)
   })
 })

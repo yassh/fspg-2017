@@ -32,6 +32,31 @@ export function getBaseValue(abbr: string, x: boolean): ?number {
   return getBaseValueOfCombo(abbr, x) || getBaseValueOfJumpX(abbr, x)
 }
 
+export function getGoeValueOfJump(abbrJump: string, judgeValue: number): ?number {
+  if (abbrJump === "4Lz") {
+    if (judgeValue === 3) return 300
+    if (judgeValue === 2) return 200
+    if (judgeValue === 1) return 100
+    if (judgeValue === 0) return 0
+    if (judgeValue === -1) return -120
+    if (judgeValue === -2) return -240
+    if (judgeValue === -3) return -400
+  }
+
+  return null
+}
+
+export function getGoe(abbr: string, judgeValues: Array<number>): ?number {
+  if (judgeValues.length < 3) return null
+
+  const sortedJudgeValues = judgeValues.sort((a, b) => b - a)
+  const remainingJudgeValues = sortedJudgeValues.slice(1, -1)
+  const sum = remainingJudgeValues.reduce((acc, judgeValue) => acc + getGoeValueOfJump(abbr, judgeValue), 0)
+  const goe = Math.round(sum / remainingJudgeValues.length)
+
+  return goe
+}
+
 export default function(input: Object): Object {
   return {
     ...input,
