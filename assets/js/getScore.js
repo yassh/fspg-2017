@@ -18,18 +18,27 @@ export function getBaseValue(abbr: string, x: boolean): ?number {
   return getBaseValueOfCombo(abbr, x) || getBaseValueOfJumpX(abbr, x)
 }
 
-export function getGoeValueOfJump(abbrJump: string, judgeValue: number): ?number {
-  if (abbrJump === "4Lz") {
-    if (judgeValue === 3) return 300
-    if (judgeValue === 2) return 200
-    if (judgeValue === 1) return 100
-    if (judgeValue === 0) return 0
-    if (judgeValue === -1) return -120
-    if (judgeValue === -2) return -240
-    if (judgeValue === -3) return -400
-  }
+export function getGoeValue(abbr: string, judgeValue: number): ?number {
+  if (!sov[abbr]) return null
 
-  return null
+  switch (judgeValue) {
+    case 3:
+      return sov[abbr]["+3"]
+    case 2:
+      return sov[abbr]["+2"]
+    case 1:
+      return sov[abbr]["+1"]
+    case 0:
+      return sov[abbr]["base"]
+    case -1:
+      return sov[abbr]["+1"]
+    case -2:
+      return sov[abbr]["+2"]
+    case -3:
+      return sov[abbr]["+3"]
+    default:
+      return null
+  }
 }
 
 export function getGoe(abbr: string, judgeValues: Array<number>): ?number {
@@ -37,7 +46,7 @@ export function getGoe(abbr: string, judgeValues: Array<number>): ?number {
 
   const sortedJudgeValues = judgeValues.sort((a, b) => b - a)
   const remainingJudgeValues = sortedJudgeValues.slice(1, -1)
-  const sum = remainingJudgeValues.reduce((acc, judgeValue) => acc + getGoeValueOfJump(abbr, judgeValue), 0)
+  const sum = remainingJudgeValues.reduce((acc, judgeValue) => acc + getGoeValue(abbr, judgeValue), 0)
   const goe = Math.round(sum / remainingJudgeValues.length)
 
   return goe
