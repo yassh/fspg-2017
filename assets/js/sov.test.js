@@ -2,6 +2,7 @@ import sov from "./sov"
 
 test("1T", () => {
   expect(sov["1T"]).toEqual({
+    abbr: "1T",
     "+3": 60,
     "+2": 40,
     "+1": 20,
