@@ -1,22 +1,8 @@
 // @flow
+import sov from "./sov"
 
 export function getBaseValueOfJump(abbrJump: string): ?number {
-  switch (abbrJump) {
-    case "3T":
-      return 430
-    case "3S":
-      return 440
-    case "3Lo":
-      return 510
-    case "3F":
-      return 530
-    case "3Lz":
-      return 650
-    case "3A":
-      return 850
-    default:
-      return null
-  }
+  return sov[abbrJump] ? sov[abbrJump].base : null
 }
 
 export function getBaseValueOfJumpX(abbrJump: string, x: boolean): ?number {
