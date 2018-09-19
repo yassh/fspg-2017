@@ -9,6 +9,10 @@ const PATTERN_REPEATED_JUMP = `(${PATTERN_INDIVIDUAL_JUMP}[+]REP)`
 const PATTERN_JUMP_ELEMENT = `(${PATTERN_SOLO_JUMP}|${PATTERN_JUMP_COMBINATION}|${PATTERN_JUMP_SEQUENCE}|${PATTERN_REPEATED_JUMP})`
 const REGEX_JUMP_ELEMENT = new RegExp(`^${PATTERN_JUMP_ELEMENT}$`)
 
+function ascSort(arr) {
+  return [...arr].sort((a, b) => b - a)
+}
+
 export function isJumpElement(abbr: string) {
   return REGEX_JUMP_ELEMENT.test(abbr)
 }
@@ -41,13 +45,13 @@ export function getGoeValue(abbr: string, judgeValue: number): ?number {
     case 1:
       return sov[abbr]["+1"]
     case 0:
-      return sov[abbr]["base"]
+      return 0
     case -1:
-      return sov[abbr]["+1"]
+      return sov[abbr]["-1"]
     case -2:
-      return sov[abbr]["+2"]
+      return sov[abbr]["-2"]
     case -3:
-      return sov[abbr]["+3"]
+      return sov[abbr]["-3"]
     default:
       return null
   }
@@ -56,7 +60,7 @@ export function getGoeValue(abbr: string, judgeValue: number): ?number {
 export function getGoe(abbr: string, judgeValues: Array<number>): ?number {
   if (judgeValues.length < 3) return null
 
-  const sortedJudgeValues = judgeValues.sort((a, b) => b - a)
+  const sortedJudgeValues = ascSort(judgeValues)
   const remainingJudgeValues = sortedJudgeValues.slice(1, -1)
   const sum = remainingJudgeValues.reduce((acc, judgeValue) => acc + getGoeValue(abbr, judgeValue), 0)
   const goe = Math.round(sum / remainingJudgeValues.length)
@@ -69,6 +73,7 @@ export default function(input: Object): Object {
     ...input,
     elements: input.elements.map(element => ({
       ...element,
+      goe: getGoe(element.abbr, element.j),
       baseValue: getBaseValue(element.abbr, element.x),
     })),
   }

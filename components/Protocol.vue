@@ -158,35 +158,16 @@
               </template>
             </td>
             <td class="u-tar">
-              0.29
+              {{ output.elements[0].goe }}
             </td>
             <td />
-            <td class="u-tac">
-              -1
-            </td>
-            <td class="u-tac">
-              0
-            </td>
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              0
-            </td>
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              0
-            </td>
-            <td class="u-tac">
-              0
-            </td>
-            <td class="u-tac">
-              0
-            </td>
-            <td class="u-tac">
-              1
+            <td class="u-tac" v-for="(item, i) in input.elements[0].j">
+              <template v-if="inputMode">
+                <input type="number" min="-3" max="3" v-model.number="input.elements[0].j[i]">
+              </template>
+              <template v-if="outputMode">
+                {{ output.elements[0].j[i] }}
+              </template>
             </td>
             <td />
             <td />
@@ -419,6 +400,7 @@ export default {
           {
             abbr: "",
             x: false,
+            j: [0, 0, 0, 0, 0, 0, 0, 0, 0]
           },
         ],
       },
