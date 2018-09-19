@@ -33,6 +33,7 @@
   "repository": "https://github.com/yassh/fspg-2017.git",
   "scripts": {
     "build": "nuxt generate",
+    "convertdata": "node ./convertdata.js",
     "dev": "nuxt",
     "fix": "npm-run-all -p fix:*",
     "fix:css": "npm-run-all fix:css:prettier fix:css:stylelint",
