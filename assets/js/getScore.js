@@ -5,21 +5,16 @@ function ascSort(arr) {
   return [...arr].sort((a, b) => b - a)
 }
 
-export function getBaseValueOfJump(abbrJump: string): ?number {
-  return sov[abbrJump] ? sov[abbrJump].base : null
-}
+export function getBaseValueOfJump(abbrJump: string, x: boolean): ?number {
+  return abbrJump.split("+").reduce((acc, abbr) => {
+    const bv = sov[abbr] ? Math.floor(sov[abbr].base * (x ? 1.1 : 1)) : null
 
-export function getBaseValueOfJumpX(abbrJump: string, x: boolean): ?number {
-  const baseValue = getBaseValueOfJump(abbrJump)
-  return baseValue && x ? Math.floor(baseValue * 1.1) : baseValue
-}
-
-export function getBaseValueOfCombo(abbrCombo: string, x: boolean): ?number {
-  return abbrCombo.split("+").reduce((acc, abbrJump) => acc + getBaseValueOfJumpX(abbrJump, x), 0)
+    return acc + bv
+  }, 0)
 }
 
 export function getBaseValue(abbr: string, x: boolean): ?number {
-  return getBaseValueOfCombo(abbr, x) || getBaseValueOfJumpX(abbr, x)
+  return getBaseValueOfJump(abbr, x)
 }
 
 export function getGoeValue(abbr: string, judgeValue: number): ?number {
