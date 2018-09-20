@@ -161,9 +161,9 @@
               {{ output.elements[0].goe }}
             </td>
             <td />
-            <td class="u-tac" v-for="(item, i) in input.elements[0].j">
+            <td v-for="(item, i) in input.elements[0].j" :key="i" class="u-tac">
               <template v-if="inputMode">
-                <input type="number" min="-3" max="3" v-model.number="input.elements[0].j[i]">
+                <input v-model.number="input.elements[0].j[i]" type="number" min="-3" max="3" />
               </template>
               <template v-if="outputMode">
                 {{ output.elements[0].j[i] }}
@@ -400,7 +400,7 @@ export default {
           {
             abbr: "",
             x: false,
-            j: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            j: [0, 0, 0, 0, 0, 0, 0, 0, 0],
           },
         ],
       },
