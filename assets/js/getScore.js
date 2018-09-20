@@ -1,20 +1,8 @@
 // @flow
 import sov from "./sov"
 
-const PATTERN_INDIVIDUAL_JUMP = "((1|2|3|4)(T|S|Lo|F|Lz|A)e?(<|<<)?)"
-const PATTERN_SOLO_JUMP = `(${PATTERN_INDIVIDUAL_JUMP})`
-const PATTERN_JUMP_COMBINATION = `(${PATTERN_INDIVIDUAL_JUMP}[+]${PATTERN_INDIVIDUAL_JUMP}([+]${PATTERN_INDIVIDUAL_JUMP})?)`
-const PATTERN_JUMP_SEQUENCE = `(${PATTERN_INDIVIDUAL_JUMP}[+]${PATTERN_INDIVIDUAL_JUMP}[+]SEQ)`
-const PATTERN_REPEATED_JUMP = `(${PATTERN_INDIVIDUAL_JUMP}[+]REP)`
-const PATTERN_JUMP_ELEMENT = `(${PATTERN_SOLO_JUMP}|${PATTERN_JUMP_COMBINATION}|${PATTERN_JUMP_SEQUENCE}|${PATTERN_REPEATED_JUMP})`
-const REGEX_JUMP_ELEMENT = new RegExp(`^${PATTERN_JUMP_ELEMENT}$`)
-
 function ascSort(arr) {
   return [...arr].sort((a, b) => b - a)
-}
-
-export function isJumpElement(abbr: string) {
-  return REGEX_JUMP_ELEMENT.test(abbr)
 }
 
 export function getBaseValueOfJump(abbrJump: string): ?number {

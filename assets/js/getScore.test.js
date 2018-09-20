@@ -1,34 +1,4 @@
-import { isJumpElement, getBaseValue, getGoe } from "./getScore"
-
-describe("isJumpElement", () => {
-  test('"3A" => true', () => {
-    expect(isJumpElement("3A")).toEqual(true)
-  })
-
-  test('"3Lze<+2T" => true', () => {
-    expect(isJumpElement("3Lze<+2T")).toEqual(true)
-  })
-
-  test('"3Fe+2T+2Lo" => true', () => {
-    expect(isJumpElement("3Fe+2T+2Lo")).toEqual(true)
-  })
-
-  test('"3Lo<+1Lo<+3S<<" => true', () => {
-    expect(isJumpElement("3Lo<+1Lo<+3S<<")).toEqual(true)
-  })
-
-  test('"3T<+2A+SEQ" => true', () => {
-    expect(isJumpElement("3T<+2A+SEQ")).toEqual(true)
-  })
-
-  test('"3F+REP" => true', () => {
-    expect(isJumpElement("3F+REP")).toEqual(true)
-  })
-
-  test('"StSq3" => true', () => {
-    expect(isJumpElement("StSq3")).toEqual(false)
-  })
-})
+import { getBaseValue, getGoe } from "./getScore"
 
 describe("getBaseValue", () => {
   test('"3A" => 850', () => {
