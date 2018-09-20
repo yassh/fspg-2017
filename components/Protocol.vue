@@ -147,7 +147,7 @@
             </td>
             <td />
             <td class="u-tar">
-              {{ output.elements[0].baseValue }}
+              {{ output.elements[0].bv }}
             </td>
             <td>
               <template v-if="inputMode">
@@ -172,7 +172,7 @@
             <td />
             <td />
             <td class="u-tar">
-              8.79
+              {{ output.elements[0].sop }}
             </td>
           </tr>
           <tr>

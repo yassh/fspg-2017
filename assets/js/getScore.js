@@ -59,10 +59,17 @@ export function getGoe(abbr: string, judgeValues: Array<number>): ?number {
 export default function(input: Object): Object {
   return {
     ...input,
-    elements: input.elements.map(element => ({
-      ...element,
-      goe: getGoe(element.abbr, element.j),
-      baseValue: getBaseValue(element.abbr, element.x),
-    })),
+    elements: input.elements.map(element => {
+      const bv = getBaseValue(element.abbr, element.x)
+      const goe = getGoe(element.abbr, element.j)
+      const sop = bv + goe
+
+      return {
+        ...element,
+        bv,
+        goe,
+        sop,
+      }
+    }),
   }
 }
