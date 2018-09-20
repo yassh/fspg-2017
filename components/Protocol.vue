@@ -320,32 +320,17 @@
               1.00
             </td>
             <td />
-            <td class="u-tac">
-              8.25
-            </td>
-            <td class="u-tac">
-              8.75
-            </td>
-            <td class="u-tac">
-              8.25
-            </td>
-            <td class="u-tac">
-              8.75
-            </td>
-            <td class="u-tac">
-              8.50
-            </td>
-            <td class="u-tac">
-              8.25
-            </td>
-            <td class="u-tac">
-              8.00
-            </td>
-            <td class="u-tac">
-              7.75
-            </td>
-            <td class="u-tac">
-              7.50
+            <td v-for="(item, i) in input.ss" :key="i" class="u-tac">
+              <template v-if="inputMode">
+                <select v-model="input.ss[i]">
+                  <option v-for="option in pcOptions" :key="option.value" :value="option.value">
+                    {{ option.label }}
+                  </option>
+                </select>
+              </template>
+              <template v-if="outputMode">
+                {{ output.ss[i] }}
+              </template>
             </td>
             <td />
             <td />
@@ -384,6 +369,11 @@
 <script>
 import getScore from "~/assets/js/getScore"
 
+const pcOptions = []
+for (let value = 0; value <= 1000; value += 25) {
+  pcOptions.push({ value, label: (value / 100).toFixed(2) })
+}
+
 export default {
   props: {
     mode: {
@@ -393,6 +383,7 @@ export default {
   },
   data() {
     return {
+      pcOptions,
       input: {
         rank: 1,
         name: "",
@@ -403,6 +394,11 @@ export default {
             j: [0, 0, 0, 0, 0, 0, 0, 0, 0],
           },
         ],
+        ss: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        tr: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        pe: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        co: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        in: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       },
     }
   },
