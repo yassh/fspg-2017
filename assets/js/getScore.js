@@ -1,4 +1,5 @@
 // @flow
+import _ from "lodash"
 import sov from "./sov"
 
 function ascSort(arr) {
@@ -51,6 +52,21 @@ export function getGoe(abbr: string, judgeValues: Array<number>): ?number {
   return goe
 }
 
+export function getPcs(judgeValues: Array<number>): ?number {
+  if (judgeValues.length < 3) return null
+
+  const sortedJudgeValues = ascSort(judgeValues)
+  const remainingJudgeValues = sortedJudgeValues.slice(1, -1)
+  const sum = _.sum(remainingJudgeValues)
+  const meanValue = sum / remainingJudgeValues.length
+
+  return Math.round(meanValue)
+}
+
+export function getTpcs(input: Object): number {
+  return getPcs(input.ss.j) + getPcs(input.tr.j) + getPcs(input.tr.j) + getPcs(input.co.j) + getPcs(input.in.j)
+}
+
 export default function(input: Object): Object {
   return {
     ...input,
@@ -66,5 +82,10 @@ export default function(input: Object): Object {
         sop,
       }
     }),
+    ss: {
+      ...input.ss,
+      sop: getPcs(input.ss.j),
+    },
+    tpcs: getTpcs(input),
   }
 }

@@ -61,7 +61,7 @@
               43.51
             </td>
             <td class="u-tar">
-              42.50
+              {{ output.tpcs }}
             </td>
             <td class="u-tar">
               0.00
@@ -320,22 +320,22 @@
               1.00
             </td>
             <td />
-            <td v-for="(item, i) in input.ss" :key="i" class="u-tac">
+            <td v-for="(item, i) in input.ss.j" :key="i" class="u-tac">
               <template v-if="inputMode">
-                <select v-model="input.ss[i]">
+                <select v-model="input.ss.j[i]">
                   <option v-for="option in pcOptions" :key="option.value" :value="option.value">
                     {{ option.label }}
                   </option>
                 </select>
               </template>
               <template v-if="outputMode">
-                {{ output.ss[i] }}
+                {{ output.ss.j[i] }}
               </template>
             </td>
             <td />
             <td />
             <td class="u-tar">
-              8.25
+              {{ output.ss.sop }}
             </td>
           </tr>
           <tr>
@@ -357,7 +357,7 @@
             <td />
             <td />
             <td class="u-tar u-bold">
-              42.50
+              {{ output.tpcs }}
             </td>
           </tr>
         </tbody>
@@ -370,7 +370,7 @@
 import getScore from "~/assets/js/getScore"
 
 const pcOptions = []
-for (let value = 0; value <= 1000; value += 25) {
+for (let value = 1000; value >= 0; value -= 25) {
   pcOptions.push({ value, label: (value / 100).toFixed(2) })
 }
 
@@ -394,11 +394,21 @@ export default {
             j: [0, 0, 0, 0, 0, 0, 0, 0, 0],
           },
         ],
-        ss: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        tr: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        pe: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        co: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        in: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ss: {
+          j: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
+        },
+        tr: {
+          j: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
+        },
+        pe: {
+          j: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
+        },
+        co: {
+          j: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
+        },
+        in: {
+          j: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
+        },
       },
     }
   },
