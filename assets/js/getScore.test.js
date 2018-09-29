@@ -1,4 +1,4 @@
-import { getBaseValue, getGoe, getPcSop } from "./getScore"
+import { getBaseValue, getGoe, getPcs } from "./getScore"
 
 describe("getBaseValue", () => {
   test('"3A" => 850', () => {
@@ -24,8 +24,8 @@ describe("getGoe", () => {
   })
 })
 
-describe("getPcSop", () => {
+describe("getPcs", () => {
   test("[1000, 950, 950, 950, 925, 950, 900, 925, 900] => 936", () => {
-    expect(getPcSop([1000, 950, 950, 950, 925, 950, 900, 925, 900])).toEqual(936)
+    expect(getPcs([1000, 950, 950, 950, 925, 950, 900, 925, 900])).toEqual(936)
   })
 })

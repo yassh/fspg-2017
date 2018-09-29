@@ -34,7 +34,7 @@
           <tr>
             <td class="u-tar">
               <template v-if="inputMode">
-                <input v-model="input.rank" type="number" />
+                <input v-model.number="input.rank" type="number" min="1" />
               </template>
               <template v-if="outputMode">
                 {{ output.rank }}
@@ -49,16 +49,26 @@
               </template>
             </td>
             <td>
-              UZB
+              <template v-if="inputMode">
+                <input v-model="input.nation" />
+              </template>
+              <template v-if="outputMode">
+                {{ output.nation }}
+              </template>
             </td>
             <td class="u-tar">
-              31
+              <template v-if="inputMode">
+                <input v-model.number="input.startingNumber" type="number" min="1" />
+              </template>
+              <template v-if="outputMode">
+                {{ output.startingNumber }}
+              </template>
             </td>
             <td class="u-tar">
-              86.01
+              {{ output.tss }}
             </td>
             <td class="u-tar">
-              43.51
+              {{ output.tes }}
             </td>
             <td class="u-tar">
               {{ output.tpcs }}
@@ -163,7 +173,11 @@
             <td />
             <td v-for="(item, i) in input.elements[0].j" :key="i" class="u-tac">
               <template v-if="inputMode">
-                <input v-model.number="input.elements[0].j[i]" type="number" min="-3" max="3" />
+                <select v-model="input.elements[0].j[i]">
+                  <option v-for="option in goeOptions" :key="option.value" :value="option.value">
+                    {{ option.label }}
+                  </option>
+                </select>
               </template>
               <template v-if="outputMode">
                 {{ output.elements[0].j[i] }}
@@ -299,7 +313,7 @@
             <td />
             <td />
             <td class="u-tar u-bold">
-              43.51
+              {{ output.tes }}
             </td>
           </tr>
           <tr>
@@ -311,31 +325,47 @@
               Factor
             </td>
           </tr>
-          <tr>
+          <tr v-for="row in [
+            { label: 'Skating Skills', id: 'skatingSkills' },
+            { label: 'Transitions', id: 'transitions' },
+            { label: 'Performance', id: 'performance' },
+            { label: 'Composition', id: 'composition' },
+            { label: 'Interpretation of the Music', id: 'interpretation' },
+          ]" :key="row.id"
+          >
             <td />
             <td colspan="4">
-              Skating Skills
+              {{ row.label }}
             </td>
             <td class="u-tar">
-              1.00
+              <template v-if="inputMode">
+                <select v-model="input.programComponents.factor">
+                  <option v-for="option in pcFactorOptions" :key="option.value" :value="option.value">
+                    {{ option.label }}
+                  </option>
+                </select>
+              </template>
+              <template v-if="outputMode">
+                {{ output.programComponents.factor | toFixed }}
+              </template>
             </td>
             <td />
-            <td v-for="(item, i) in input.ss.j" :key="i" class="u-tac">
+            <td v-for="(item, i) in input.programComponents[row.id].j" :key="i" class="u-tac">
               <template v-if="inputMode">
-                <select v-model="input.ss.j[i]">
+                <select v-model="input.programComponents[row.id].j[i]">
                   <option v-for="option in pcOptions" :key="option.value" :value="option.value">
                     {{ option.label }}
                   </option>
                 </select>
               </template>
               <template v-if="outputMode">
-                {{ output.ss.j[i] }}
+                {{ output.programComponents[row.id].j[i] }}
               </template>
             </td>
             <td />
             <td />
             <td class="u-tar">
-              {{ output.ss.sop }}
+              {{ output.programComponents[row.id].sop }}
             </td>
           </tr>
           <tr>
@@ -369,12 +399,24 @@
 <script>
 import getScore from "~/assets/js/getScore"
 
-const pcOptions = []
+const goeOptions = [{ value: null, label: "" }]
+for (let value = 3; value >= -3; value -= 1) {
+  goeOptions.push({ value, label: value.toString() })
+}
+
+const pcFactorOptions = [{ value: 1, label: "1.00" }, { value: 1.6, label: "1.60" }, { value: 2, label: "2.00" }]
+
+const pcOptions = [{ value: null, label: "" }]
 for (let value = 1000; value >= 0; value -= 25) {
   pcOptions.push({ value, label: (value / 100).toFixed(2) })
 }
 
 export default {
+  filters: {
+    toFixed(value) {
+      return value.toFixed(2)
+    },
+  },
   props: {
     mode: {
       type: String,
@@ -383,38 +425,48 @@ export default {
   },
   data() {
     return {
+      goeOptions,
       pcOptions,
+      pcFactorOptions,
       input: {
         rank: 1,
         name: "",
+        nation: "",
+        startingNumber: 1,
         elements: [
           {
             abbr: "",
             x: false,
-            j: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            j: [null, null, null, null, null, null, null, null, null],
           },
         ],
-        ss: {
-          j: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
-        },
-        tr: {
-          j: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
-        },
-        pe: {
-          j: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
-        },
-        co: {
-          j: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
-        },
-        in: {
-          j: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
+        programComponents: {
+          factor: 1,
+          skatingSkills: {
+            j: [null, null, null, null, null, null, null, null, null],
+          },
+          transitions: {
+            j: [null, null, null, null, null, null, null, null, null],
+          },
+          performance: {
+            j: [null, null, null, null, null, null, null, null, null],
+          },
+          composition: {
+            j: [null, null, null, null, null, null, null, null, null],
+          },
+          interpretation: {
+            j: [null, null, null, null, null, null, null, null, null],
+          },
         },
       },
     }
   },
   computed: {
     output() {
-      return getScore(this.input)
+      const output = getScore(this.input)
+
+      console.log("output", output)
+      return output
     },
     inputMode() {
       return this.mode === "input"

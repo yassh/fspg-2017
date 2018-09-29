@@ -42,50 +42,84 @@ export function getGoeValue(abbr: string, judgeValue: number): ?number {
 }
 
 export function getGoe(abbr: string, judgeValues: Array<number>): ?number {
-  if (judgeValues.length < 3) return null
+  const filteredJudgeValues = judgeValues.filter(judgeValue => judgeValue != null)
 
-  const sortedJudgeValues = ascSort(judgeValues)
-  const remainingJudgeValues = sortedJudgeValues.slice(1, -1)
-  const sum = remainingJudgeValues.reduce((acc, judgeValue) => acc + getGoeValue(abbr, judgeValue), 0)
-  const goe = Math.round(sum / remainingJudgeValues.length)
+  if (filteredJudgeValues.length < 3) return null
 
-  return goe
+  const remainingJudgeValues = ascSort(filteredJudgeValues).slice(1, -1)
+  const sum = _.sum(remainingJudgeValues.map(judgeValue => getGoeValue(abbr, judgeValue)))
+
+  return Math.round(sum / remainingJudgeValues.length)
 }
 
 export function getPcs(judgeValues: Array<number>): ?number {
-  if (judgeValues.length < 3) return null
+  const filteredJudgeValues = judgeValues.filter(judgeValue => judgeValue != null)
 
-  const sortedJudgeValues = ascSort(judgeValues)
-  const remainingJudgeValues = sortedJudgeValues.slice(1, -1)
+  if (filteredJudgeValues.length < 3) return null
+
+  const remainingJudgeValues = ascSort(filteredJudgeValues).slice(1, -1)
   const sum = _.sum(remainingJudgeValues)
-  const meanValue = sum / remainingJudgeValues.length
 
-  return Math.round(meanValue)
-}
-
-export function getTpcs(input: Object): number {
-  return getPcs(input.ss.j) + getPcs(input.tr.j) + getPcs(input.tr.j) + getPcs(input.co.j) + getPcs(input.in.j)
+  return Math.round(sum / remainingJudgeValues.length)
 }
 
 export default function(input: Object): Object {
+  const elements = input.elements.map(element => {
+    const bv = getBaseValue(element.abbr, element.x)
+    const goe = getGoe(element.abbr, element.j)
+    const sop = bv + goe
+
+    return {
+      ...element,
+      bv,
+      goe,
+      sop,
+    }
+  })
+
+  const tes = _.sum(elements.map(element => element.sop))
+
+  const programComponents = {
+    ...input.programComponents,
+    skatingSkills: {
+      ...input.programComponents.skatingSkills,
+      sop: getPcs(input.programComponents.skatingSkills.j),
+    },
+    transitions: {
+      ...input.programComponents.transitions,
+      sop: getPcs(input.programComponents.transitions.j),
+    },
+    performance: {
+      ...input.programComponents.performance,
+      sop: getPcs(input.programComponents.performance.j),
+    },
+    composition: {
+      ...input.programComponents.composition,
+      sop: getPcs(input.programComponents.composition.j),
+    },
+    interpretation: {
+      ...input.programComponents.interpretation,
+      sop: getPcs(input.programComponents.interpretation.j),
+    },
+  }
+
+  const tpcs = Math.round(
+    programComponents.factor *
+      (programComponents.skatingSkills.sop +
+        programComponents.transitions.sop +
+        programComponents.performance.sop +
+        programComponents.composition.sop +
+        programComponents.interpretation.sop),
+  )
+
+  const tss = tes + tpcs
+
   return {
     ...input,
-    elements: input.elements.map(element => {
-      const bv = getBaseValue(element.abbr, element.x)
-      const goe = getGoe(element.abbr, element.j)
-      const sop = bv + goe
-
-      return {
-        ...element,
-        bv,
-        goe,
-        sop,
-      }
-    }),
-    ss: {
-      ...input.ss,
-      sop: getPcs(input.ss.j),
-    },
-    tpcs: getTpcs(input),
+    elements,
+    programComponents,
+    tes,
+    tpcs,
+    tss,
   }
 }
