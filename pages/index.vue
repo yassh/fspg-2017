@@ -5,10 +5,10 @@
     </h1>
     <div class="mode">
       <span class="mode-button" @click="toInputMode">
-        📝
+        <span class="fas fa-edit" />
       </span>
       <span class="mode-button" @click="toOutputMode">
-        🖨
+        <span class="fas fa-eye" />
       </span>
     </div>
     <Protocol :mode="mode" />
