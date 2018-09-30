@@ -1,5 +1,6 @@
 // @flow
 import _ from "lodash"
+import { isJump } from "./is"
 import sov from "./sov"
 
 function ascSort(arr) {
@@ -15,7 +16,7 @@ export function getBaseValueOfJump(abbrJump: string, x: boolean): ?number {
 }
 
 export function getBaseValue(abbr: string, x: boolean): ?number {
-  return getBaseValueOfJump(abbr, x)
+  return isJump(abbr) ? getBaseValueOfJump(abbr, x) : sov[abbr] ? sov[abbr].base : null
 }
 
 export function getGoeValue(abbr: string, judgeValue: number): ?number {

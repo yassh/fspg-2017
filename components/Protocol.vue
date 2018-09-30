@@ -1,5 +1,15 @@
 <template>
-  <div>
+  <section>
+    <div class="title">
+      <template v-if="inputMode">
+        <input v-model.number="input.title" type="text" placeholder="Title" />
+      </template>
+      <template v-if="outputMode">
+        <h1>
+          {{ output.title }}
+        </h1>
+      </template>
+    </div>
     <div class="frame">
       <table class="u-bold">
         <thead>
@@ -50,7 +60,7 @@
             </td>
             <td>
               <template v-if="inputMode">
-                <input v-model="input.nation" />
+                <input v-model="input.nation" type="text" />
               </template>
               <template v-if="outputMode">
                 {{ output.nation }}
@@ -100,7 +110,9 @@
               Base Value
             </th>
             <th style="width: 1rem;">
-              <!-- Bonus -->
+              <template v-if="inputMode">
+                x
+              </template>
             </th>
             <th style="width: 4rem;">
               GOE
@@ -143,152 +155,50 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr v-for="(element, elementIndex) in input.elements" v-if="!(outputMode && element.abbr === '')" :key="elementIndex">
             <td class="u-tar">
-              1
+              {{ elementIndex + 1 }}
             </td>
             <td>
               <template v-if="inputMode">
-                <input v-model="input.elements[0].abbr" type="text" />
+                <input v-model="input.elements[elementIndex].abbr" type="text" />
               </template>
               <template v-if="outputMode">
-                {{ output.elements[0].abbr }}
+                {{ output.elements[elementIndex].abbr }}
               </template>
             </td>
             <td />
             <td class="u-tar">
-              {{ output.elements[0].bv }}
+              {{ output.elements[elementIndex].bv }}
             </td>
             <td>
               <template v-if="inputMode">
-                <input v-model="input.elements[0].x" type="checkbox" />
+                <input v-model="input.elements[elementIndex].x" type="checkbox" />
               </template>
               <template v-if="outputMode">
-                {{ output.elements[0].x ? "x" : "" }}
+                {{ output.elements[elementIndex].x ? "x" : "" }}
               </template>
             </td>
             <td class="u-tar">
-              {{ output.elements[0].goe }}
+              {{ output.elements[elementIndex].goe }}
             </td>
             <td />
-            <td v-for="(item, i) in input.elements[0].j" :key="i" class="u-tac">
+            <td v-for="(j, jIndex) in element.j" :key="jIndex" class="u-tac">
               <template v-if="inputMode">
-                <select v-model="input.elements[0].j[i]">
+                <select v-model="input.elements[elementIndex].j[jIndex]">
                   <option v-for="option in goeOptions" :key="option.value" :value="option.value">
                     {{ option.label }}
                   </option>
                 </select>
               </template>
               <template v-if="outputMode">
-                {{ output.elements[0].j[i] }}
+                {{ output.elements[elementIndex].j[jIndex] }}
               </template>
             </td>
             <td />
             <td />
             <td class="u-tar">
-              {{ output.elements[0].sop }}
-            </td>
-          </tr>
-          <tr>
-            <td class="u-tar">
-              2
-            </td>
-            <td>
-              3Lz+3T
-            </td>
-            <td />
-            <td class="u-tar">
-              10.30
-            </td>
-            <td />
-            <td class="u-tar">
-              0.80
-            </td>
-            <td />
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              2
-            </td>
-            <td class="u-tac">
-              2
-            </td>
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              1
-            </td>
-            <td />
-            <td />
-            <td class="u-tar">
-              11.10
-            </td>
-          </tr>
-          <tr>
-            <td class="u-tar">
-              4
-            </td>
-            <td>
-              3F
-            </td>
-            <td>
-              !
-            </td>
-            <td class="u-tar">
-              5.83
-            </td>
-            <td>
-              x
-            </td>
-            <td class="u-tar">
-              0.50
-            </td>
-            <td />
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              0
-            </td>
-            <td class="u-tac">
-              0
-            </td>
-            <td class="u-tac">
-              1
-            </td>
-            <td class="u-tac">
-              -1
-            </td>
-            <td />
-            <td />
-            <td class="u-tar">
-              6.33
+              {{ output.elements[elementIndex].sop }}
             </td>
           </tr>
           <tr>
@@ -350,16 +260,16 @@
               </template>
             </td>
             <td />
-            <td v-for="(item, i) in input.programComponents[row.id].j" :key="i" class="u-tac">
+            <td v-for="(j, jIndex) in input.programComponents[row.id].j" :key="jIndex" class="u-tac">
               <template v-if="inputMode">
-                <select v-model="input.programComponents[row.id].j[i]">
+                <select v-model="input.programComponents[row.id].j[jIndex]">
                   <option v-for="option in pcOptions" :key="option.value" :value="option.value">
                     {{ option.label }}
                   </option>
                 </select>
               </template>
               <template v-if="outputMode">
-                {{ output.programComponents[row.id].j[i] }}
+                {{ output.programComponents[row.id].j[jIndex] }}
               </template>
             </td>
             <td />
@@ -393,10 +303,11 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
+import _ from "lodash"
 import getScore from "~/assets/js/getScore"
 
 const goeOptions = [{ value: null, label: "" }]
@@ -429,17 +340,16 @@ export default {
       pcOptions,
       pcFactorOptions,
       input: {
+        title: "",
         rank: 1,
         name: "",
         nation: "",
         startingNumber: 1,
-        elements: [
-          {
-            abbr: "",
-            x: false,
-            j: [null, null, null, null, null, null, null, null, null],
-          },
-        ],
+        elements: _.times(13, () => ({
+          abbr: "",
+          x: false,
+          j: [null, null, null, null, null, null, null, null, null],
+        })),
         programComponents: {
           factor: 1,
           skatingSkills: {
@@ -463,10 +373,7 @@ export default {
   },
   computed: {
     output() {
-      const output = getScore(this.input)
-
-      console.log("output", output)
-      return output
+      return getScore(this.input)
     },
     inputMode() {
       return this.mode === "input"
