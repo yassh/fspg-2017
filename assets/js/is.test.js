@@ -25,7 +25,7 @@ describe("isJump", () => {
     expect(isJump("3F+REP")).toEqual(true)
   })
 
-  test('"StSq3" => true', () => {
+  test('"StSq3" => false', () => {
     expect(isJump("StSq3")).toEqual(false)
   })
 })

@@ -16,6 +16,18 @@ describe("getBaseValue", () => {
   test('"3A+3T, x" => 1408', () => {
     expect(getBaseValue("3A+3T", true)).toEqual(1408)
   })
+
+  test('"3Fe" => 370', () => {
+    expect(getBaseValue("3Fe")).toEqual(370)
+  })
+
+  test('"3Fe<" => 320', () => {
+    expect(getBaseValue("3Fe<")).toEqual(320)
+  })
+
+  test('"3Fe, x" => 407', () => {
+    expect(getBaseValue("3Fe", true)).toEqual(407)
+  })
 })
 
 describe("getGoe", () => {
