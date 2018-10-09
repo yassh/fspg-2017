@@ -303,6 +303,29 @@
         </tbody>
       </table>
     </div>
+
+    <div class="frame">
+      <table>
+        <tbody>
+          <tr>
+            <td style="width: 1.5rem;" />
+            <td class="u-bold" style="width: 8rem;">
+              Deductions
+            </td>
+            <td class="u-tar">
+              Falls: -2.00(2)
+            </td>
+            <td class="u-tar">
+              Falls: -2.00(2)
+            </td>
+            <td class="u-tar" />
+            <td class="u-tar u-bold" style="width: 6rem;">
+              -1.00
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 </template>
 
