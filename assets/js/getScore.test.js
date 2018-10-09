@@ -29,6 +29,14 @@ describe("getBaseValue", () => {
     test('"3Fe, x" => 407', () => {
       expect(getBaseValue("3Fe", true)).toEqual(407)
     })
+
+    test('"3A+REP" => 595', () => {
+      expect(getBaseValue("3A+REP")).toEqual(595)
+    })
+
+    test('"3A<+REP, x" => 454', () => {
+      expect(getBaseValue("3A<+REP", true)).toEqual(454)
+    })
   })
 
   describe("Step and Choreographic Sequences", () => {

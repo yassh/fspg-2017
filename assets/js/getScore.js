@@ -9,8 +9,9 @@ function ascSort(arr) {
 
 export function getBaseValueOfJump(abbrJump: string, x: boolean): ?number {
   return abbrJump.split("+").reduce((acc, abbr) => {
-    const bv = sov[abbr] ? Math.floor(sov[abbr].base * (x ? 1.1 : 1)) : null
+    if (abbr === "REP") return Math.round(acc * 0.7)
 
+    const bv = Math.round(sov[abbr].base * (x ? 1.1 : 1))
     return acc + bv
   }, 0)
 }
