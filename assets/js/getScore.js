@@ -7,40 +7,21 @@ function ascSort(arr) {
   return [...arr].sort((a, b) => b - a)
 }
 
-export function getBaseValueOfJump(abbrJump: string, x: boolean): ?number {
+export function getBaseValue(abbr: string): ?number {
+  return sov[abbr] ? sov[abbr].base : null
+}
+
+export function getBaseValueOfJump(abbrJump: string, x?: boolean = false): number {
   return abbrJump.split("+").reduce((acc, abbr) => {
     if (abbr === "REP") return Math.round(acc * 0.7)
 
-    const bv = Math.round(sov[abbr].base * (x ? 1.1 : 1))
+    const bv = Math.round((getBaseValue(abbr) || 0) * (x ? 1.1 : 1))
     return acc + bv
   }, 0)
 }
 
-export function getBaseValue(abbr: string, x: boolean): ?number {
-  return isJump(abbr) ? getBaseValueOfJump(abbr, x) : sov[abbr] ? sov[abbr].base : null
-}
-
-export function getGoeValue(abbr: string, judgeValue: number): ?number {
-  if (!sov[abbr]) return null
-
-  switch (judgeValue) {
-    case 3:
-      return sov[abbr]["+3"]
-    case 2:
-      return sov[abbr]["+2"]
-    case 1:
-      return sov[abbr]["+1"]
-    case 0:
-      return 0
-    case -1:
-      return sov[abbr]["-1"]
-    case -2:
-      return sov[abbr]["-2"]
-    case -3:
-      return sov[abbr]["-3"]
-    default:
-      return null
-  }
+export function getBaseValueOfElement(abbr: string, x?: boolean = false): ?number {
+  return isJump(abbr) ? getBaseValueOfJump(abbr, x) : getBaseValue(abbr)
 }
 
 export function getGoe(abbr: string, judgeValues: Array<number>): ?number {
@@ -49,9 +30,44 @@ export function getGoe(abbr: string, judgeValues: Array<number>): ?number {
   if (filteredJudgeValues.length < 3) return null
 
   const remainingJudgeValues = ascSort(filteredJudgeValues).slice(1, -1)
-  const sum = _.sum(remainingJudgeValues.map(judgeValue => getGoeValue(abbr, judgeValue)))
+  const sum = _.sum(
+    remainingJudgeValues.map(judgeValue => {
+      if (!sov[abbr]) return null
+
+      switch (judgeValue) {
+        case 3:
+          return sov[abbr]["+3"]
+        case 2:
+          return sov[abbr]["+2"]
+        case 1:
+          return sov[abbr]["+1"]
+        case 0:
+          return 0
+        case -1:
+          return sov[abbr]["-1"]
+        case -2:
+          return sov[abbr]["-2"]
+        case -3:
+          return sov[abbr]["-3"]
+        default:
+          return null
+      }
+    }),
+  )
 
   return Math.round(sum / remainingJudgeValues.length)
+}
+
+export function getGoeOfJump(abbrJump: string, judgeValues: Array<number>): ?number {
+  const abbrMostDifficultJump = abbrJump
+    .split("+")
+    .reduce((acc, abbr) => (getBaseValueOfJump(abbr) > getBaseValueOfJump(acc) ? abbr : acc))
+
+  return getGoe(abbrMostDifficultJump, judgeValues)
+}
+
+export function getGoeOfElement(abbr: string, judgeValues: Array<number>): ?number {
+  return isJump(abbr) ? getGoeOfJump(abbr, judgeValues) : getGoe(abbr, judgeValues)
 }
 
 export function getPcs(judgeValues: Array<number>): ?number {
@@ -67,8 +83,8 @@ export function getPcs(judgeValues: Array<number>): ?number {
 
 export default function(input: Object): Object {
   const elements = input.elements.map(element => {
-    const bv = getBaseValue(element.abbr, element.x)
-    const goe = getGoe(element.abbr, element.j)
+    const bv = getBaseValueOfElement(element.abbr, element.x)
+    const goe = getGoeOfElement(element.abbr, element.j)
     const sop = bv + goe
 
     return {
