@@ -338,7 +338,7 @@ for (let value = 3; value >= -3; value -= 1) {
   goeOptions.push({ value, label: value.toString() })
 }
 
-const pcFactorOptions = [{ value: 1, label: "1.00" }, { value: 1.6, label: "1.60" }, { value: 2, label: "2.00" }]
+const pcFactorOptions = [{ value: 0.8, label: "0.80" }, { value: 1, label: "1.00" }, { value: 1.6, label: "1.60" }, { value: 2, label: "2.00" }]
 
 const pcOptions = [{ value: null, label: "" }]
 for (let value = 1000; value >= 0; value -= 25) {
