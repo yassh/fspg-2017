@@ -75,13 +75,13 @@
               </template>
             </td>
             <td class="u-tar">
-              {{ output.tss }}
+              {{ output.tss | toCentesimal | toFixed }}
             </td>
             <td class="u-tar">
-              {{ output.tes }}
+              {{ output.tes | toCentesimal | toFixed }}
             </td>
             <td class="u-tar">
-              {{ output.tpcs }}
+              {{ output.tpcs | toCentesimal | toFixed }}
             </td>
             <td class="u-tar">
               0.00
@@ -169,7 +169,7 @@
             </td>
             <td />
             <td class="u-tar">
-              {{ output.elements[elementIndex].bv }}
+              {{ output.elements[elementIndex].bv | toCentesimal | toFixed }}
             </td>
             <td>
               <template v-if="inputMode">
@@ -180,7 +180,7 @@
               </template>
             </td>
             <td class="u-tar">
-              {{ output.elements[elementIndex].goe }}
+              {{ output.elements[elementIndex].goe | toCentesimal | toFixed }}
             </td>
             <td />
             <td v-for="(j, jIndex) in element.j" :key="jIndex" class="u-tac">
@@ -198,7 +198,7 @@
             <td />
             <td />
             <td class="u-tar">
-              {{ output.elements[elementIndex].sop }}
+              {{ output.elements[elementIndex].sop | toCentesimal | toFixed }}
             </td>
           </tr>
           <tr>
@@ -223,7 +223,7 @@
             <td />
             <td />
             <td class="u-tar u-bold">
-              {{ output.tes }}
+              {{ output.tes | toCentesimal | toFixed }}
             </td>
           </tr>
           <tr>
@@ -275,7 +275,7 @@
             <td />
             <td />
             <td class="u-tar">
-              {{ output.programComponents[row.id].sop }}
+              {{ output.programComponents[row.id].sop | toCentesimal | toFixed }}
             </td>
           </tr>
           <tr>
@@ -297,7 +297,7 @@
             <td />
             <td />
             <td class="u-tar u-bold">
-              {{ output.tpcs }}
+              {{ output.tpcs | toCentesimal | toFixed }}
             </td>
           </tr>
         </tbody>
@@ -352,6 +352,9 @@ for (let value = 1000; value >= 0; value -= 25) {
 
 export default {
   filters: {
+    toCentesimal(value) {
+      return value / 100
+    },
     toFixed(value) {
       return value.toFixed(2)
     },
