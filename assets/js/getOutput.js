@@ -4,7 +4,7 @@ import getBaseValueOfElement from "./getBaseValueOfElement"
 import getGoeOfElement from "./getGoeOfElement"
 import getPcs from "./getPcs"
 
-export default function getScore(input: Object): Object {
+export default function getOutput(input: Object): Object {
   const elements = input.elements.map(element => {
     const bv = getBaseValueOfElement(element.abbr, element.x)
     const goe = getGoeOfElement(element.abbr, element.j)

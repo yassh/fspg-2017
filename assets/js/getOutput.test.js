@@ -1,6 +1,6 @@
-import getScore from "./getScore"
+import getOutput from "./getOutput"
 
-describe("getScore", () => {
+describe("getOutput", () => {
   test("OWG2018 Men SP HANYU Yuzuru", () => {
     const input = {
       title: "Olympic Winter Games PyeongChang 2018 - Men Single Skating - Short Program",
@@ -157,6 +157,6 @@ describe("getScore", () => {
       tss: 11168,
     }
 
-    expect(getScore(input)).toEqual(output)
+    expect(getOutput(input)).toEqual(output)
   })
 })

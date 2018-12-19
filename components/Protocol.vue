@@ -331,7 +331,7 @@
 
 <script>
 import _ from "lodash"
-import getScore from "~/assets/js/getScore"
+import getOutput from "~/assets/js/getOutput"
 
 const goeOptions = [{ value: null, label: "" }]
 for (let value = 3; value >= -3; value -= 1) {
@@ -404,7 +404,7 @@ export default {
   },
   computed: {
     output() {
-      return getScore(this.input)
+      return getOutput(this.input)
     },
     inputMode() {
       return this.mode === "input"
