@@ -11,7 +11,7 @@
         <span class="fas fa-eye" />
       </span>
     </div>
-    <Protocol :mode="mode" />
+    <Protocol :mode="mode" :saved-input="savedInput" @input="handleProtocolInput" />
   </div>
 </template>
 
@@ -25,14 +25,26 @@ export default {
   data() {
     return {
       mode: "input",
+      savedInput: { title: "test" },
+      input: {},
     }
+  },
+  created() {
+    try {
+      this.savedInput = JSON.parse(window.location.hash.substring(1))
+    } catch (e) {}
   },
   methods: {
     toInputMode() {
       this.mode = "input"
+      window.location.hash = ""
     },
     toOutputMode() {
       this.mode = "output"
+      window.location.hash = JSON.stringify(this.input)
+    },
+    handleProtocolInput(value) {
+      this.input = value
     },
   },
 }

@@ -364,6 +364,10 @@ export default {
       type: String,
       required: true,
     },
+    savedInput: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
@@ -399,6 +403,21 @@ export default {
             j: [null, null, null, null, null, null, null, null, null],
           },
         },
+        deductions: [
+          {
+            type: "",
+            point: 0,
+          },
+          {
+            type: "",
+            point: 0,
+          },
+          {
+            type: "",
+            point: 0,
+          },
+        ],
+        ...this.savedInput,
       },
     }
   },
@@ -411,6 +430,14 @@ export default {
     },
     outputMode() {
       return this.mode === "output"
+    },
+  },
+  watch: {
+    input: {
+      handler(value) {
+        this.$emit("input", value)
+      },
+      deep: true,
     },
   },
 }
